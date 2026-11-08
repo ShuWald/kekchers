@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+src/checkers-python/AI_Extensions/__pycache__/
+src/checkers-python/__pycache__/
+
+Sample_AIs/Random_AI/AI_Extensions/__pycache__/
+Sample_AIs/Random_AI/__pycache__/
