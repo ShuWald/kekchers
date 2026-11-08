@@ -70,7 +70,7 @@ class StudentAI():
             return min_eval
 
     def evaluate(self,me):
-        my_color = "B" if me == 1 else "W"
+        my_color = "b" if me == 1 else "w"
         score = 0.0
         for r in range(self.board.row):
             for c in range(self.board.col):
