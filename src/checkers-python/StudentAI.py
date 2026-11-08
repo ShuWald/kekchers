@@ -14,7 +14,7 @@ class StudentAI():
         self.color = ''
         self.opponent = {1:2,2:1}
         self.color = 2
-        self.depth = 3
+        self.depth = 4
 
     def get_move(self,move):
         if len(move) != 0:
@@ -42,7 +42,7 @@ class StudentAI():
 
     def minmax(self, player, alpha, beta, depth):
         if depth == 0:
-            return self.evaluate(player)
+            return self.evaluate(self.color)
         moves = self.board.get_all_possible_moves(player)
         if player == self.color:
             max_eval = float('-inf')
