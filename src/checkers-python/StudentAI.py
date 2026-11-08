@@ -14,6 +14,7 @@ class StudentAI():
         self.color = ''
         self.opponent = {1:2,2:1}
         self.color = 2
+        self.depth = 3
 
     def get_move(self,move):
         if len(move) != 0:
@@ -23,10 +24,12 @@ class StudentAI():
         moves = self.board.get_all_possible_moves(self.color)
         best_score = float('-inf')
         best_moves = []
+        alpha = float('-inf')
+        beta = float('inf')
         for piece_moves in moves:
             for m in piece_moves:
                 self.board.make_move(m,self.color)
-                score = self.evaluate(self.color)
+                score = self.minmax(self.opponent[self.color], alpha, beta, self.depth - 1)
                 self.board.undo()
                 if score > best_score:
                     best_score = score
@@ -37,6 +40,35 @@ class StudentAI():
         self.board.make_move(move,self.color)
         return move
 
+    def minmax(self, player, alpha, beta, depth):
+        if depth == 0:
+            return self.evaluate(player)
+        moves = self.board.get_all_possible_moves(player)
+        if player == self.color:
+            max_eval = float('-inf')
+            for piece_moves in moves:
+                for m in piece_moves:
+                    self.board.make_move(m, player)
+                    eval = self.minmax(self.opponent[player], alpha, beta, depth - 1)
+                    self.board.undo()
+                    max_eval = max(max_eval, eval)
+                    alpha = max(alpha, eval)
+                    if beta <= alpha:
+                        return max_eval
+            return max_eval
+        else:
+            min_eval = float('inf')
+            for piece_moves in moves:
+                for m in piece_moves:
+                    self.board.make_move(m, player)
+                    eval = self.minmax(self.opponent[player], alpha, beta, depth - 1)
+                    self.board.undo()
+                    min_eval = min(min_eval, eval)
+                    beta = min(beta, eval)
+                    if beta <= alpha:
+                        return min_eval
+            return min_eval
+
     def evaluate(self,me):
         my_color = "B" if me == 1 else "W"
         score = 0.0
@@ -45,6 +77,6 @@ class StudentAI():
                 ch = self.board.board[r][c]
                 if ch.color == ".":
                     continue
-                value = 1.5 if ch.is_king else 1.0
+                value = 2.0 if ch.is_king else 1.0
                 score += value if ch.color == my_color else -value
         return score
