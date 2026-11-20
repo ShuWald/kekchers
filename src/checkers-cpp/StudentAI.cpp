@@ -23,7 +23,7 @@ Board& GameState::get_board() {
     return board;
 }
 
-PositionCache::PositionCache() {}
+//PositionCache::PositionCache() {}
 
 Evaluator::Evaluator(GameState& game_state, int color)
     : game_state(game_state), color(color) {}

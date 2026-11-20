@@ -23,10 +23,10 @@ public:
 };
 
 class PositionCache {
-    // Future storage for position metadata
-    // Uses provided keys, does not own complete board states.\
+// Future storage for position metadata
+// Uses provided keys, does not own complete board states.
 public:
-    PositionCache();
+    PositionCache() = default;
 };
 
 class Evaluator {
